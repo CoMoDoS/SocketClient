@@ -76,18 +76,15 @@ public class ReadArticle extends JFrame {
 
     }
 
-    public void showRelated(JsonArray jsonArray) throws IOException, ClassNotFoundException {
+    public void showRelated(JsonArray jsonArray) {
 
         JsonObject jsonObject = new JsonObject();
         JsonParser jsonParser = new JsonParser();
         ArrayList<JsonObject> list = new ArrayList<JsonObject>();
         for ( int i=0; i<jsonArray.size(); i++ )
         {
-            //  System.out.println("The " + i + " element of the array: "+lang.get(i));
             jsonObject = (JsonObject) jsonParser.parse(String.valueOf(jsonArray.get(i)));
             list.add(jsonObject);
-//            System.out.println(jsonObject.get("title"));
-//            System.out.println( jsonObject.get("abs"));
         }
 
         DefaultTableModel model2 = new DefaultTableModel();

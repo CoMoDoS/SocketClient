@@ -54,7 +54,7 @@ public class Home extends JFrame {
                         System.out.println(jsonArray.get(i).toString());
 
                     new ReadArticle(body,jsonArray);
-                    //System.out.println(retRelated.toString());
+
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 } catch (ClassNotFoundException e1) {
@@ -91,44 +91,44 @@ public class Home extends JFrame {
         return passTf;
     }
 
-    public void showArticles() throws IOException, ClassNotFoundException {
-        Message message = new Message("1","get-articles");
-        int ok = Client.comunicateSend(message);
-        Message retMsg = Client.comunicateRead();
-//        System.out.println(retMsg.toString());
- //       System.out.println(retMsg.getB());
-        ArrayList<JsonObject> list = new ArrayList<JsonObject>();
-//        jsonObject = (JsonObject) jsonParser.parse(retMsg.getB());
-        JsonArray lang = (JsonArray) jsonParser.parse(retMsg.getB());
-        for ( int i=0; i<lang.size(); i++ )
-        {
-          //  System.out.println("The " + i + " element of the array: "+lang.get(i));
-            jsonObject = (JsonObject) jsonParser.parse(String.valueOf(lang.get(i)));
-            list.add(jsonObject);
-//            System.out.println(jsonObject.get("title"));
-//            System.out.println( jsonObject.get("abs"));
-        }
-
-        DefaultTableModel model1 = new DefaultTableModel();
-        model1.addColumn("ID");
-        model1.addColumn("Title");
-        model1.addColumn("Abstract");
-
-        table1.setModel(model1);
-
-        Object[] row = new Object[3];
-        for ( int i=0; i< list.size(); i++)
-        {
-            row[0] = list.get(i).get("id");
-            row[1] = list.get(i).get("title");
-            row[2] = list.get(i).get("abs");
-            model1.addRow(row);
-        }
-
-        table1.setModel(model1);
-        model1.fireTableDataChanged();
-
+    public JTable getTable1() {
+        return table1;
     }
+
+    //    public void showArticles() throws IOException, ClassNotFoundException {
+//        Message message = new Message("1","get-articles");
+//        Client.comunicateSend(message);
+//        Message retMsg = Client.comunicateRead();
+//
+//        ArrayList<JsonObject> list = new ArrayList<JsonObject>();
+//
+//        JsonArray lang = (JsonArray) jsonParser.parse(retMsg.getB());
+//        for ( int i=0; i<lang.size(); i++ )
+//        {
+//            jsonObject = (JsonObject) jsonParser.parse(String.valueOf(lang.get(i)));
+//            list.add(jsonObject);
+//        }
+//
+//        DefaultTableModel model1 = new DefaultTableModel();
+//        model1.addColumn("ID");
+//        model1.addColumn("Title");
+//        model1.addColumn("Abstract");
+//
+//        table1.setModel(model1);
+//
+//        Object[] row = new Object[3];
+//        for ( int i=0; i< list.size(); i++)
+//        {
+//            row[0] = list.get(i).get("id");
+//            row[1] = list.get(i).get("title");
+//            row[2] = list.get(i).get("abs");
+//            model1.addRow(row);
+//        }
+//
+//        table1.setModel(model1);
+//        model1.fireTableDataChanged();
+//
+//    }
 }
 
 
