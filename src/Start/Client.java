@@ -25,7 +25,8 @@ public class Client {
         Home home = new Home();
         AdminView adminView = new AdminView();
         WriterView writerView = new WriterView();
-        Controller controller = new Controller(home, adminView, writerView);
+        Subject subject= new Subject();
+        Controller controller = new Controller(home, adminView, writerView, subject);
     }
 
 

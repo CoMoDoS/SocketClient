@@ -16,18 +16,28 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 
-public class Controller
+public class Controller extends Observ
 {
     private Home home;
     private AdminView adminView;
     private WriterView writerView;
 
+    Subject subject;
+
+    private List<Observer> observers = new ArrayList<Observer>();
+
     private static JsonObject jsonObject = new JsonObject();
     private static JsonParser jsonParser = new JsonParser();
 
-    public Controller(Home home, AdminView adminView, WriterView writerView) throws IOException, ClassNotFoundException {
+    public Controller(Home home, AdminView adminView, WriterView writerView, Subject subject) throws IOException, ClassNotFoundException {
+        this.subject = subject;
+        this.subject.attach(this);
+
         this.home = home;
         this.home.setVisible(true);
         this.home.setLoginButton(new ButtonLogin());
@@ -45,6 +55,23 @@ public class Controller
 
 
     }
+
+
+    @Override
+    public void update() {
+        JTable table1 = home.getTable1();
+        JTable table2 = writerView.getTable1();
+        try {
+            showArticles(table1);
+            showArticles(table2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     private class ButtonLogin implements ActionListener {
         @Override
@@ -69,7 +96,7 @@ public class Controller
                 }
                 if( retMsg.getB().compareTo("ok") == 0 && retMsg.getA().compareTo("writer") == 0 ) {
                     writerView.setVisible(true);
-//                    writerView.showArticles();
+
                     JTable table1 = writerView.getTable1();
                     showArticles(table1);
                     JOptionPane.showMessageDialog(null, "Login successfully");
@@ -141,8 +168,9 @@ public class Controller
                 Message msg = Client.comunicateRead();
                 if( msg.getB().compareTo("ok") == 0 ) {
 //                    writerView.showArticles();
-                    JTable table1 = writerView.getTable1();
-                    showArticles(table1);
+//                    JTable table1 = writerView.getTable1();
+                    update();
+//                    showArticles(table1);
                     JOptionPane.showMessageDialog(null, "Article created successfully");
                 }
                 if ( msg.getB().compareTo("error") == 0)
@@ -157,7 +185,8 @@ public class Controller
         }
     }
 
-    private class ButtonUpdateArticle implements ActionListener {
+    private class ButtonUpdateArticle  implements ActionListener
+    {
         @Override
         public void actionPerformed(ActionEvent e) {
             String title = writerView.getTitleTF().getText();
@@ -185,12 +214,13 @@ public class Controller
                 System.out.println(msg.toString());
                 if( msg.getB().compareTo("ok") == 0 ) {
 //                    writerView.showArticles();
-                    JTable table1 = writerView.getTable1();
-                    showArticles(table1);
-//                    home.showArticles();
-                    JTable table2 = home.getTable1();
-//                    home.showArticles();
-                    showArticles(table2);
+                    update();
+//                    JTable table1 = writerView.getTable1();
+//                    showArticles(table1);
+////                    home.showArticles();
+//                    JTable table2 = home.getTable1();
+////                    home.showArticles();
+//                    showArticles(table2);
                     JOptionPane.showMessageDialog(null, "Article updated successfully");
                 }
                 if ( msg.getB().compareTo("error") == 0)
@@ -203,7 +233,7 @@ public class Controller
         }
     }
 
-    private class ButtonDeleteArticle implements ActionListener {
+    private class ButtonDeleteArticle  implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
 
@@ -213,11 +243,13 @@ public class Controller
                 Message msg = Client.comunicateRead();
                 if( msg.getB().compareTo("ok") == 0 ) {
 //                    writerView.showArticles();
-                    JTable table1 = writerView.getTable1();
-                    showArticles(table1);
-                    JTable table2 = home.getTable1();
-//                    home.showArticles();
-                    showArticles(table2);
+                        update();
+
+//                    JTable table1 = writerView.getTable1();
+//                    showArticles(table1);
+//                    JTable table2 = home.getTable1();
+////                    home.showArticles();
+//                    showArticles(table2);
                     JOptionPane.showMessageDialog(null, "Article deleted successfully");
                 }
                 if ( msg.getB().compareTo("error") == 0)

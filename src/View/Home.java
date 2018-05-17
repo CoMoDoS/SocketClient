@@ -95,40 +95,6 @@ public class Home extends JFrame {
         return table1;
     }
 
-    //    public void showArticles() throws IOException, ClassNotFoundException {
-//        Message message = new Message("1","get-articles");
-//        Client.comunicateSend(message);
-//        Message retMsg = Client.comunicateRead();
-//
-//        ArrayList<JsonObject> list = new ArrayList<JsonObject>();
-//
-//        JsonArray lang = (JsonArray) jsonParser.parse(retMsg.getB());
-//        for ( int i=0; i<lang.size(); i++ )
-//        {
-//            jsonObject = (JsonObject) jsonParser.parse(String.valueOf(lang.get(i)));
-//            list.add(jsonObject);
-//        }
-//
-//        DefaultTableModel model1 = new DefaultTableModel();
-//        model1.addColumn("ID");
-//        model1.addColumn("Title");
-//        model1.addColumn("Abstract");
-//
-//        table1.setModel(model1);
-//
-//        Object[] row = new Object[3];
-//        for ( int i=0; i< list.size(); i++)
-//        {
-//            row[0] = list.get(i).get("id");
-//            row[1] = list.get(i).get("title");
-//            row[2] = list.get(i).get("abs");
-//            model1.addRow(row);
-//        }
-//
-//        table1.setModel(model1);
-//        model1.fireTableDataChanged();
-//
-//    }
 }
 
 

@@ -16,8 +16,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class WriterView extends JFrame{
+public class WriterView extends JFrame
+{
     private JPanel mainPanel;
     private JTable table1;
     private JTextField titleTF;
@@ -40,17 +42,17 @@ public class WriterView extends JFrame{
         this.setContentPane(mainPanel);
         this.pack();
         table1.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                int tableRow = table1.getSelectedRow();
-                TableModel model2 = table1.getModel();
-                JsonPrimitive id = (JsonPrimitive) model2.getValueAt(tableRow,0);
-                String idArticle = id.getAsString();
-                JsonPrimitive title = (JsonPrimitive) model2.getValueAt(tableRow,1);
-                String titleArticle = title.getAsString();
-                JsonPrimitive abs = (JsonPrimitive) model2.getValueAt(tableRow,2);
-                String absArticle = abs.getAsString();
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        super.mouseClicked(e);
+                        int tableRow = table1.getSelectedRow();
+                        TableModel model2 = table1.getModel();
+                        JsonPrimitive id = (JsonPrimitive) model2.getValueAt(tableRow,0);
+                        String idArticle = id.getAsString();
+                        JsonPrimitive title = (JsonPrimitive) model2.getValueAt(tableRow,1);
+                        String titleArticle = title.getAsString();
+                        JsonPrimitive abs = (JsonPrimitive) model2.getValueAt(tableRow,2);
+                        String absArticle = abs.getAsString();
 
                 idTF.setText(idArticle);
                 titleTF.setText(titleArticle);
